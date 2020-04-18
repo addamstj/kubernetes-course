@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stressedout
+spec:
+  selector:
+    matchLabels:
+      app: stressed
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: stressed
+    spec:
+        containers:
+        - name: phpapp
+          image: k8s.gcr.io/hpa-example
+          resources:
+            limits:
+              memory: "250Mi"
+              cpu: "250m"
+          ports:
+          - containerPort: 80
+          imagePullPolicy: Always

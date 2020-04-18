@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  awslb
+spec:
+  selector:
+    name: myPod
+  type:  LoadBalancer
+  ports:
+  - port:  8080
+    targetPort: 80

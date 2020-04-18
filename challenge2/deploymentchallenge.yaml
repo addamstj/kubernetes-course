@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  challenge
+  labels:
+    name:  challenge
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      os: ubuntu
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        os: ubuntu
+    spec:
+      containers:
+      - name: ubuntu
+        image: ubuntu:latest
+        resources:
+          limits:
+            memory: "500m"
+            cpu: "500m"
+        ports:
+          - containerPort: 8080

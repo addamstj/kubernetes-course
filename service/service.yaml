@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  websrvc
+spec:
+  selector:
+    server: web
+  type:  ClusterIP
+  ports:
+  - port: 8080
+    targetPort: 80

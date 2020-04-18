@@ -1,0 +1,44 @@
+# Non-working Demo
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: liveread
+  labels:
+    app: liveread
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: liveread
+  template:
+    metadata:
+      labels:
+        app: liveread
+    spec:
+      containers:
+      - name: myapp
+        image: liveread:latest
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: 8080
+          initialDelaySeconds: 2
+          periodSeconds: 3
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 3
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 3
+        resources:
+          limits:
+            cpu: 250mi
+            memory: 500m
