@@ -3,9 +3,10 @@ kind: PersistentVolume
 metadata:
   name: pv01
 spec:
+  storageClassName: admstor
   accessModes:
     - ReadWriteOnce
   capacity:
     storage: 2Gi
   hostPath:
-    path: /data/pv01  
+    path: /data/pv01

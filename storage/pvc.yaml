@@ -3,8 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: mypvc
 spec:
+  storageClassName: admstor
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi  
+      storage: 1Gi

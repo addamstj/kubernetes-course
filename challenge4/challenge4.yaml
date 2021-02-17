@@ -3,37 +3,36 @@ kind: PersistentVolume
 metadata:
   name: challenge-pv
 spec:
+  storageClassName: challenge
   accessModes:
     - ReadWriteOnce
   capacity:
     storage: 2Gi
   hostPath:
     path: /data/challenge-pv
-
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: challenge-pvc
 spec:
+  storageClassName: challenge
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
-
 ---
-
 apiVersion: v1
 kind: Pod
 metadata:
-  name: challenge5
+  name: challenge
   labels:
-    name: challenge5
+    name: challenge
 spec:
   containers:
   - name: nginx
-    image: nginx
+    image: nginx:latest
     resources:
       limits:
         memory: "128Mi"
@@ -41,10 +40,9 @@ spec:
     ports:
       - containerPort: 80
     volumeMounts:
-      - mountPath: /var/www/html
-        name: challenge-vl  
+      - name: challenge-vl
+        mountPath: /var/www/html
   volumes:
     - name: challenge-vl
       persistentVolumeClaim:
         claimName: challenge-pvc
-
